@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
@@ -16,6 +17,8 @@ namespace ApplicationLifeCycle
     public class ApplicationLifeCycle : LifetimeScope
     {
         [SerializeField] UpdateRunner m_UpdateRunner;
+        [Tooltip("The first scene that is to be loaded once the ApplicationController is initialized.")]
+        [SerializeField] string m_LandingSceneName;
 
         IDisposable m_Subscriptions;
 
@@ -23,6 +26,8 @@ namespace ApplicationLifeCycle
         {
             base.Configure(builder);
             builder.RegisterComponent(m_UpdateRunner);
+
+            builder.RegisterInstance(new MessageChannel<QuitApplicationMessage>()).AsImplementedInterfaces();
         }
 
         private void Start()
@@ -34,7 +39,10 @@ namespace ApplicationLifeCycle
             m_Subscriptions = subHandles;
 
             Application.wantsToQuit += OnWantToQuit;
-
+            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(m_UpdateRunner.gameObject);
+            Application.targetFrameRate = 120;
+            SceneManager.LoadScene(m_LandingSceneName);
         }
 
         private bool IsItSafeToQuit()
