@@ -11,6 +11,7 @@ public class WeaponParent : MonoBehaviour
 
     public Transform circleOrigin;
     public float radius;
+    public SpriteRenderer m_SpriteRenderer;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +50,7 @@ public class WeaponParent : MonoBehaviour
         if (m_Attacking)
             return;
 
+        m_SpriteRenderer.enabled = true;
         m_Animator.SetTrigger("Attack");
         m_Attacking = true;
         StartCoroutine(DelayColliderDetection());
@@ -65,6 +67,7 @@ public class WeaponParent : MonoBehaviour
     {
         yield return new WaitForSeconds(Cooldown);
         m_Attacking = false;
+        m_SpriteRenderer.enabled = false;
     }
 
     private void OnDrawGizmosSelected()

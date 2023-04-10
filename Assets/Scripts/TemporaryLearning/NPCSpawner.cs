@@ -9,6 +9,7 @@ public class NPCSpawner : MonoBehaviour
     public float timeBetweenSpawnSeconds = 0.1f;
     public float timeSinceSpawn = 0;
     public GameObject prefabToSpawn;
+    public float spawnInsideRadius = 5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +24,7 @@ public class NPCSpawner : MonoBehaviour
             timeSinceSpawn = timeBetweenSpawnSeconds;
             numSpawned += 1;
 
-            Instantiate(prefabToSpawn, transform);
+            Instantiate(prefabToSpawn, transform.position + (Vector3)(Random.insideUnitCircle * spawnInsideRadius), Quaternion.identity);
         }
         else 
         {

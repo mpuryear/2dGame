@@ -2338,6 +2338,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &177201044
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19062,6 +19063,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &526360941
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19257,7 +19259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &663551245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19275,6 +19277,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.001
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &663551246
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19665,11 +19668,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f98fdc3f78ca9d42b946884e5408207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numToSpawn: 10
+  numToSpawn: 1
   numSpawned: 0
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &1021131096
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19772,6 +19776,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &1191465227
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19874,6 +19879,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &1418621118
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19976,6 +19982,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &1433616562
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20078,6 +20085,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &1561758499
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20180,6 +20188,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &1570021470
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20389,6 +20398,7 @@ MonoBehaviour:
   timeBetweenSpawnSeconds: 0.1
   timeSinceSpawn: 0
   prefabToSpawn: {fileID: 1869783703954280487, guid: 5df9331d039e7954c8f324378b7f64f9, type: 3}
+  spawnInsideRadius: 5
 --- !u!212 &2141759814
 SpriteRenderer:
   m_ObjectHideFlags: 0
