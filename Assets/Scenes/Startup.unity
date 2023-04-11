@@ -201,7 +201,7 @@ MonoBehaviour:
   autoRun: 1
   autoInjectGameObjects: []
   m_UpdateRunner: {fileID: 1130104422}
-  m_LandingSceneName: 
+  m_LandingSceneName: SampleScene
 --- !u!4 &1558156953
 Transform:
   m_ObjectHideFlags: 0

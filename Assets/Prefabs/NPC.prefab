@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 7417425427764476692}
   - component: {fileID: 7545020245613381577}
   - component: {fileID: 6120798949976102399}
+  - component: {fileID: 8328541705646395389}
+  - component: {fileID: 2059428319564467992}
+  - component: {fileID: 8508353793383780834}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -28,11 +31,11 @@ Transform:
   m_GameObject: {fileID: 1869783703954280487}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.59, y: 2.6, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7417425427764476692
 SpriteRenderer:
@@ -107,8 +110,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 1869783703954280487}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.1
-  m_Speed: 3.5
+  m_Radius: 0.2
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -119,4 +122,71 @@ NavMeshAgent:
   m_Height: 1.4226667
   m_BaseOffset: 0.71133333
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 1
+--- !u!58 &8328541705646395389
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869783703954280487}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06}
+  serializedVersion: 2
+  m_Radius: 0.23
+--- !u!114 &2059428319564467992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869783703954280487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87935a513f877b7419f30abc04d4f385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxHealth: 1
+--- !u!114 &8508353793383780834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869783703954280487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea624c798d5f4cb4786399d67630dc39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChildNumber: 0
+  MaxChildDepth: 3
+  SlimePrefab: {fileID: 1869783703954280487}
+  scaleFactor: 0.33
+  spawnInsideRadius: 1
+  minToSpawn: 2
+  maxToSpawn: 5
