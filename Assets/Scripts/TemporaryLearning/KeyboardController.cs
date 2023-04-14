@@ -14,6 +14,8 @@ public class KeyboardController : MonoBehaviour
     [SerializeField]
     private float m_Speed;
 
+    public float Speed => m_Speed;
+
     //private NavMeshAgent m_Agent;
     private Vector3 m_TargetDirection;
     private Vector3 m_LastDirection;
@@ -60,5 +62,10 @@ public class KeyboardController : MonoBehaviour
         transform.position += (m_TargetDirection * m_Speed * Time.deltaTime);
         
         m_LerpTime += Time.deltaTime;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        m_Speed = speed;
     }
 }
