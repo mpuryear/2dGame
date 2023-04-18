@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8328541705646395389}
   - component: {fileID: 2059428319564467992}
   - component: {fileID: 8508353793383780834}
+  - component: {fileID: 3164070323132138359}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -171,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxHealth: 1
+  m_DamagePopupHandler: {fileID: 0}
 --- !u!114 &8508353793383780834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +192,17 @@ MonoBehaviour:
   spawnInsideRadius: 1
   minToSpawn: 2
   maxToSpawn: 5
+--- !u!114 &3164070323132138359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869783703954280487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b64dc83322a0247946953b4e4d4401, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToSpawn: {fileID: 1908585843148285562, guid: e20aae3d22d9d364c8d7b4dce4b71fe6, type: 3}
+  percentSpawnChance: 30
