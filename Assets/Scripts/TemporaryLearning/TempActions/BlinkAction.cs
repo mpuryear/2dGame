@@ -7,7 +7,6 @@ public class BlinkAction : MonoBehaviour
     UIActionCooldowns cooldownUI;
     bool m_BlinkIsReady = true;
     float m_BlinkCooldown = 3f;
-    float m_Speed = 5;
     
     // Start is called before the first frame update
     void Start()

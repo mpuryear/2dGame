@@ -7,12 +7,15 @@ public class UIActionCooldowns : MonoBehaviour
 {
     public Slider m_DashCooldown;
     public Slider m_BlinkCooldown;
+    public Slider m_AttackCooldown;
 
     float m_DashDuration = 3f;
     float m_DashCooldownDuration = 5f;
     float m_BlinkCooldownDuration = 3f;
+    float m_AttackCooldownDuration = 0.3f;
     public float m_BlinkCooldownRemaining = 0f;
     public float m_DashCooldownRemaining = 0f;
+    public float m_AttackCooldownRemaining = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +28,14 @@ public class UIActionCooldowns : MonoBehaviour
     {
         m_BlinkCooldownRemaining -= Time.deltaTime;
         m_DashCooldownRemaining -= Time.deltaTime;
+        m_AttackCooldownRemaining -= Time.deltaTime;
         m_BlinkCooldownRemaining = Mathf.Max(0, m_BlinkCooldownRemaining);
         m_DashCooldownRemaining = Mathf.Max(0, m_DashCooldownRemaining);
+        m_AttackCooldownRemaining = Mathf.Max(0, m_AttackCooldownRemaining);
 
         m_BlinkCooldown.value =  m_BlinkCooldownRemaining / m_BlinkCooldownDuration;
         m_DashCooldown.value = m_DashCooldownRemaining / m_DashCooldownDuration;
+        m_AttackCooldown.value = m_AttackCooldownRemaining / m_AttackCooldownDuration;
     }
 
     public void OnBlinkDidOccur()
@@ -40,5 +46,10 @@ public class UIActionCooldowns : MonoBehaviour
     public void OnDashDidStart()
     {
         m_DashCooldownRemaining = m_DashCooldownDuration;
+    }
+
+    public void OnAttackDidOccur() 
+    {
+        m_AttackCooldownRemaining = m_AttackCooldownDuration;
     }
 }

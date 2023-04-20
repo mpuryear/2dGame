@@ -38,11 +38,6 @@ public class WeaponParent : MonoBehaviour
             scale.y = -1;
         }
         transform.localScale = scale;
-
-        if(Input.GetMouseButtonDown(0))
-        {
-            Attack();
-        }
     }
 
     public void Attack() 
