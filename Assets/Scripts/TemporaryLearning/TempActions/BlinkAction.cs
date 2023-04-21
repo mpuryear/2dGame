@@ -20,7 +20,12 @@ public class BlinkAction : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && m_BlinkIsReady)
         {
             Vector2 PointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = PointerPosition;
+            CommandManager.Instance.AddCommand(
+                new BlinkCommand(
+                    transform,
+                    PointerPosition
+                )
+            );
             m_BlinkIsReady = false;
             cooldownUI?.OnBlinkDidOccur();
             StartCoroutine(StartBlinkCooldown());

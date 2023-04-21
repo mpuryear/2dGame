@@ -58,8 +58,19 @@ public class KeyboardController : MonoBehaviour
         }
         m_LastDirection = m_MovementVector;
         m_TargetDirection = Vector3.Lerp(m_TargetDirection, m_MovementVector, Mathf.Clamp01(m_LerpTime * (1 - m_Smoothing)));
-
-        transform.position += (m_TargetDirection * m_Speed * Time.deltaTime);
+        Vector3 movementToApply = (m_TargetDirection * m_Speed * Time.deltaTime);
+        //transform.position += movementToApply;
+        if (movementToApply != Vector3.zero)
+        {
+            CommandManager.Instance.AddCommand(
+                new MoveCommand(
+                    transform,
+                    movementToApply
+                )
+            );
+        }
+        
+        
         
         m_LerpTime += Time.deltaTime;
     }
