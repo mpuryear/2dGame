@@ -6,8 +6,6 @@ public class MoveCommand : ICommand
 {
     private Transform transform;
     private Vector3 movement;
-    private float invokedAt;
-
     public MoveCommand(Transform transform, Vector3 movementToApply)
     {
         this.transform = transform;
@@ -16,17 +14,18 @@ public class MoveCommand : ICommand
 
     public void Execute()
     {
-        invokedAt = Time.realtimeSinceStartup;
         transform.position += movement;
     }
 
+    // Note:- The Move.Undo command won't always rewind time exactly as it was as the collisions are still forcing npc separation
     public void Undo()
     {
-        transform.position -= movement;
-    }
-
-    public float ExecutionTimestamp()
-    {
-        return invokedAt;
+        // Store our undo in the master command manager for replay functionality.
+        CommandManager.Instance.AddCommand(
+            new MoveCommand(
+                transform,
+                -movement
+            )
+        );
     }
 }

@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class KeyboardController : MonoBehaviour
 {
+    public RewindableCommandManager rewinder;
+
     [SerializeField]
     private InputActionAsset m_InputActions;
     private InputActionMap m_InputActionMap;
@@ -28,6 +30,7 @@ public class KeyboardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rewinder = GetComponent<RewindableCommandManager>();
         m_TargetDirection = Vector3.zero;
         m_LastDirection = Vector3.zero;
         m_MovementVector = Vector3.zero;
@@ -51,6 +54,8 @@ public class KeyboardController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {           
+        if (rewinder.IsRewinding) { return; }
+        
         m_MovementVector.Normalize();
         if (m_MovementVector != m_LastDirection)
         {
@@ -59,14 +64,15 @@ public class KeyboardController : MonoBehaviour
         m_LastDirection = m_MovementVector;
         m_TargetDirection = Vector3.Lerp(m_TargetDirection, m_MovementVector, Mathf.Clamp01(m_LerpTime * (1 - m_Smoothing)));
         Vector3 movementToApply = (m_TargetDirection * m_Speed * Time.deltaTime);
-        //transform.position += movementToApply;
+        
         if (movementToApply != Vector3.zero)
         {
             CommandManager.Instance.AddCommand(
                 new MoveCommand(
                     transform,
                     movementToApply
-                )
+                ),
+                rewinder
             );
         }
         

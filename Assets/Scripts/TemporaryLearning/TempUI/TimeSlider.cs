@@ -9,21 +9,24 @@ public class TimeSlider : MonoBehaviour
     public TextMeshProUGUI textMesh;
     public Slider rewindProgress;
 
+    RewindableCommandManager rewinder;
+
     void Start() 
     {
-        CommandManager.Instance.OnRewindProgressUpdate += OnCommandProgressUpdate;
+        rewinder = GameObject.FindGameObjectWithTag("Player").GetComponent<KeyboardController>().rewinder;
+        rewinder.OnRewindProgressUpdate += OnCommandProgressUpdate;
         rewindProgress.gameObject.SetActive(false);
     }
 
     void OnDestroy()
     {
-        CommandManager.Instance.OnRewindProgressUpdate -= OnCommandProgressUpdate;
+        rewinder.OnRewindProgressUpdate -= OnCommandProgressUpdate;
     }
 
     public void OnValueChanged(float value)
     {
         textMesh.text = value.ToString() + "x";
-        CommandManager.Instance.SetPlaybackSpeed(value);
+        rewinder.SetPlaybackSpeed(value);
     }
 
     public void OnCommandProgressUpdate(float completionPercent)

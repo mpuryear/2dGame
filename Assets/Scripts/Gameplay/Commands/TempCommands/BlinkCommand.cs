@@ -7,7 +7,6 @@ public class BlinkCommand : ICommand
     private Transform transform;
     private Vector3 positionToMoveTo;
     private Vector3 startingLocation;
-    private float invokedAt;
 
     public BlinkCommand(Transform transform, Vector3 blinkToPosition)
     {
@@ -17,18 +16,18 @@ public class BlinkCommand : ICommand
 
     public void Execute()
     {
-        invokedAt = Time.realtimeSinceStartup;
         startingLocation = transform.position;
         transform.position = positionToMoveTo;
     }
 
     public void Undo()
     {
-        transform.position = startingLocation;
-    }
-
-    public float ExecutionTimestamp()
-    {
-        return invokedAt;
+        // Store our undo in the master command manager for replay functionality.
+        CommandManager.Instance.AddCommand(
+            new BlinkCommand (
+                transform,
+                startingLocation
+            )
+        );
     }
 }

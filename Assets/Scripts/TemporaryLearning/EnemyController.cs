@@ -6,10 +6,13 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
 {
+    private RewindableCommandManager rewinder;
     private DynamicNavPath navPath;
     private NavigationSystem navSystem;
     private NavMeshAgent agent;
     private TempBrain brain;
+    private Collider2D collider;
+    private SpriteRenderer renderer;
 
     private Transform tempTargetTransform;
 
@@ -19,6 +22,12 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        renderer = GetComponent<SpriteRenderer>();
+        collider = GetComponent<Collider2D>();
+        rewinder = GetComponent<RewindableCommandManager>();
+        rewinder.OnRewindDidBegin += RewinderDidBegin;
+        rewinder.OnRewindDidEnd += RewinderDidEnd;
+
         navSystem = GameObject.FindGameObjectWithTag(NavigationSystem.NavigationSystemTag).GetComponent<NavigationSystem>();
         var playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -31,8 +40,16 @@ public class EnemyController : MonoBehaviour
         tempTargetTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    void OnDestroy()
+    {
+        rewinder.OnRewindDidBegin -= RewinderDidBegin;
+        rewinder.OnRewindDidEnd -= RewinderDidEnd;
+    }
+
     void Update()
     {
+        if (rewinder.IsRewinding) { return; }
+
         var currentState = brain.currentState;
         brain.Update();
 
@@ -44,12 +61,15 @@ public class EnemyController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (rewinder.IsRewinding) { return; }
+
         PerformMovement();
     }
 
     void PerformMovement()
     {
-        if(brain.currentState == TempBrain.AIStateType.Idle) {
+        if(brain.currentState == TempBrain.AIStateType.Idle) 
+        {
             return;
         }
 
@@ -75,7 +95,26 @@ public class EnemyController : MonoBehaviour
             new MoveCommand(
                 transform,
                 movementVector
-            )
+            ),
+            rewinder
         );
+    }
+
+    void RewinderDidBegin()
+    {
+        collider.enabled = false;
+
+        Color color;
+        if (ColorUtility.TryParseHtmlString("#EA00E5", out color))
+            renderer.color = color;
+    }
+
+    void RewinderDidEnd()
+    {
+        collider.enabled = true;
+
+        Color color;
+        if (ColorUtility.TryParseHtmlString("#FFFFFF", out color))
+            renderer.color = color;
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public interface ICommand
 {
-    float ExecutionTimestamp();
     void Execute();
     void Undo();
 }

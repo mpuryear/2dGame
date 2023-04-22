@@ -7,11 +7,14 @@ public class BlinkAction : MonoBehaviour
     UIActionCooldowns cooldownUI;
     bool m_BlinkIsReady = true;
     float m_BlinkCooldown = 3f;
+
+    KeyboardController keyboardController;
     
     // Start is called before the first frame update
     void Start()
     {
         cooldownUI = GetComponent<UIActionCooldowns>();
+        keyboardController = GetComponent<KeyboardController>();
     }
 
     // Update is called once per frame
@@ -24,7 +27,8 @@ public class BlinkAction : MonoBehaviour
                 new BlinkCommand(
                     transform,
                     PointerPosition
-                )
+                ),
+                keyboardController.rewinder
             );
             m_BlinkIsReady = false;
             cooldownUI?.OnBlinkDidOccur();
