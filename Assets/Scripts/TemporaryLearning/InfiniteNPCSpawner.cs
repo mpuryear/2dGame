@@ -14,9 +14,12 @@ public class InfiniteNPCSpawner : MonoBehaviour
     public float spawnInsideRadius = 5f;
     private ObjectPool<GameObject> pool;
 
+    private CurrencyView currencyView;
+
 
     void Start() 
     {
+        currencyView = GameObject.FindGameObjectWithTag("CurrencyView").GetComponent<CurrencyView>();
         pool = new ObjectPool<GameObject>(CreatePrefab, OnTakeNPCFromPool, OnReturnNPCToPool);
     }
 
@@ -53,7 +56,7 @@ public class InfiniteNPCSpawner : MonoBehaviour
     {
         obj.SetActive(false);
         obj.GetComponent<HealthManager>().Reset();
-
+        currencyView.OnKillEnemy();
 
         numCurrentlySpawned -= 1;
     }
