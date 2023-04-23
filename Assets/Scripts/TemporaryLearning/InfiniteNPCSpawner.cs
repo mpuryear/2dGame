@@ -43,6 +43,7 @@ public class InfiniteNPCSpawner : MonoBehaviour
     {
         obj.SetActive(true);
         obj.transform.position = transform.position + (Vector3)(Random.insideUnitCircle * spawnInsideRadius);
+        obj.GetComponent<RewindableCommandManager>().Clear();
 
         timeSinceSpawn = timeBetweenSpawnSeconds;
         numCurrentlySpawned += 1;

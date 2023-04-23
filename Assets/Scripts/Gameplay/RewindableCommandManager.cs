@@ -161,4 +161,9 @@ public class RewindableCommandManager : CommandManager
             commandBuffer.Pop().command.Undo();
         }
     }
+
+    public void Clear()
+    {
+        commandBuffer.Clear();
+    }
 }
