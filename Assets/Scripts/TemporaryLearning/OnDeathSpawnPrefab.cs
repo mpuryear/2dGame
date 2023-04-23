@@ -20,7 +20,7 @@ public class OnDeathSpawnPrefab : MonoBehaviour
         healthManager.OnDeath -= OnDeath;
     }
 
-    void OnDeath() 
+    void OnDeath(GameObject objThatDied) 
     {
         if(Random.Range(0f, 100f) <= percentSpawnChance)
         {

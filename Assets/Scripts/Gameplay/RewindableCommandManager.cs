@@ -27,6 +27,7 @@ public class RewindableCommandManager : CommandManager
     public Action<float> OnRewindProgressUpdate;
     public Action OnRewindDidBegin;
     public Action OnRewindDidEnd;
+    public Action OnDidRewindAllTime;
 
     float amountOfTimeToRewind = 0f;
     bool isRewindingAllTime = false;
@@ -103,6 +104,7 @@ public class RewindableCommandManager : CommandManager
             timeToRewindTo = 0;
             OnRewindProgressUpdate?.Invoke(1);
             OnRewindDidEnd();
+            OnDidRewindAllTime();
             return;
         }
 
@@ -132,7 +134,11 @@ public class RewindableCommandManager : CommandManager
             totalTimeRewound = 0;
             rewindStartTime = 0;
             timeToRewindTo = 0;
-            if(commandBuffer.Count == 0) { timeOfFirstCommand = 0; }
+            if(commandBuffer.Count == 0) 
+            { 
+                timeOfFirstCommand = 0;
+                OnDidRewindAllTime();
+            }
             OnRewindProgressUpdate?.Invoke(1);
             OnRewindDidEnd();
             return;
