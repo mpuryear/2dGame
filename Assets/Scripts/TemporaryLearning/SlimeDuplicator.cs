@@ -22,7 +22,7 @@ public class SlimeDuplicator : MonoBehaviour
         healthManager.OnDeath += SpawnSlimes;
     }
 
-    public void SpawnSlimes()
+    public void SpawnSlimes(GameObject fromObj)
     {
         if(ChildNumber < MaxChildDepth)
         {

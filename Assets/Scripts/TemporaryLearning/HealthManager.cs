@@ -8,7 +8,7 @@ public class HealthManager : MonoBehaviour
 {
     public int m_MaxHealth;
     public int m_CurrentHealth { get; private set; }
-    public Action OnDeath;
+    public Action<GameObject> OnDeath;
     public DamagePopupHandler m_DamagePopupHandler;
 
     // Start is called before the first frame update
@@ -28,18 +28,18 @@ public class HealthManager : MonoBehaviour
         }
     }
 
-    void Die()
+    public void Instakill()
     {
-        // Future:- Do more than just delete the npc
-        OnDeath?.Invoke();
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        gameObject.GetComponent<CircleCollider2D>().enabled = false;
-        StartCoroutine(WaitAndDestroy());
+        Die();
     }
 
-    IEnumerator WaitAndDestroy()
+    void Die()
     {
-        yield return new WaitForSeconds(3);
-        Destroy(this.gameObject);
+        OnDeath?.Invoke(this.gameObject);
+    }
+
+    public void Reset()
+    {
+        m_CurrentHealth = m_MaxHealth;
     }
 }

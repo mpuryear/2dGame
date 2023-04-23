@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyController : MonoBehaviour
@@ -11,15 +12,13 @@ public class EnemyController : MonoBehaviour
     private NavigationSystem navSystem;
     private NavMeshAgent agent;
     private TempBrain brain;
-    private Collider2D collider;
-    private SpriteRenderer renderer;
-
+    new private Collider2D collider;
+    new private SpriteRenderer renderer;
     private Transform tempTargetTransform;
 
     [SerializeField]
     private float moveSpeed = 5f;
 
-    // Start is called before the first frame update
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
@@ -27,6 +26,7 @@ public class EnemyController : MonoBehaviour
         rewinder = GetComponent<RewindableCommandManager>();
         rewinder.OnRewindDidBegin += RewinderDidBegin;
         rewinder.OnRewindDidEnd += RewinderDidEnd;
+        rewinder.OnDidRewindAllTime += RewinderDidRewindAllTime;
 
         navSystem = GameObject.FindGameObjectWithTag(NavigationSystem.NavigationSystemTag).GetComponent<NavigationSystem>();
         var playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -52,11 +52,6 @@ public class EnemyController : MonoBehaviour
 
         var currentState = brain.currentState;
         brain.Update();
-
-        if (brain.currentState != currentState) 
-        {
-            print("Brain state updated to: " + brain.currentState);
-        }
     }
 
     void FixedUpdate()
@@ -90,7 +85,7 @@ public class EnemyController : MonoBehaviour
         {
             movementVector += new Vector3(0, 0.0001f, 0);
         }
-        //agent.Move(movementVector);
+        
         CommandManager.Instance.AddCommand(
             new MoveCommand(
                 transform,
@@ -116,5 +111,11 @@ public class EnemyController : MonoBehaviour
         Color color;
         if (ColorUtility.TryParseHtmlString("#FFFFFF", out color))
             renderer.color = color;
+    }
+
+    void RewinderDidRewindAllTime()
+    {
+        HealthManager manager = gameObject.GetComponent<HealthManager>();
+        manager.Instakill();
     }
 }
