@@ -12,6 +12,7 @@ public class GoldVacuum : MonoBehaviour
 
     void Start() 
     {
+        currencyView = GameObject.FindGameObjectWithTag("CurrencyView").GetComponent<CurrencyView>();
         audioSouce = GetComponent<AudioSource>();
         audioSouce.clip = coinSound;
     }

@@ -118,4 +118,11 @@ public class EnemyController : MonoBehaviour
         HealthManager manager = gameObject.GetComponent<HealthManager>();
         manager.Instakill();
     }
+
+    public void Reset()
+    {
+        brain.Reset();
+        HealthManager manager = gameObject.GetComponent<HealthManager>();
+        manager.Reset();
+    }
 }
