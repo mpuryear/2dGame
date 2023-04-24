@@ -72,14 +72,15 @@ public class WeaponParent : MonoBehaviour
         Gizmos.DrawWireSphere(position, radius);
     }
 
+    Collider2D[] hitsBuffer = new Collider2D[50];
     public void DetectColliders()
     {
-        foreach (Collider2D collider in Physics2D.OverlapCircleAll(circleOrigin.position, radius))
+        int numHits = Physics2D.OverlapCircleNonAlloc(circleOrigin.position, radius, hitsBuffer);
+        for (int i = 0; i < numHits; i++)
         {
-            HealthManager healthManager;
-            if (healthManager = collider.GetComponent<HealthManager>() )
+            if (hitsBuffer[i].tag == "Enemy")
             {
-                healthManager.TakeDamage(1);
+                hitsBuffer[i].GetComponent<HealthManager>().TakeDamage(1);
             }
         }
     }

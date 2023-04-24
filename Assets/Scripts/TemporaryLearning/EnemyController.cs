@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 5f;
 
+    [SerializeField]
+    private float aggroRadius = 36f;
+
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
@@ -36,6 +39,8 @@ public class EnemyController : MonoBehaviour
 
         navPath = new DynamicNavPath(agent, navSystem);
         brain = new TempBrain(transform, playerTransform, navPath);
+
+        brain.detectEnemyRadius = aggroRadius;
 
         tempTargetTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }

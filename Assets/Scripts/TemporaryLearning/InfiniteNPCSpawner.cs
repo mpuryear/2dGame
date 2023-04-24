@@ -16,6 +16,7 @@ public class InfiniteNPCSpawner : MonoBehaviour
     private float timeSinceSpawn = 0f;
     public float spawnInsideRadius = 5f;
     private ObjectPool<GameObject> pool;
+    private List<GameObject> spawnedObjects;
 
     public bool allowRespawns = true;
 
@@ -28,6 +29,7 @@ public class InfiniteNPCSpawner : MonoBehaviour
     {
         currencyView = GameObject.FindGameObjectWithTag("CurrencyView").GetComponent<CurrencyView>();
         pool = new ObjectPool<GameObject>(CreatePrefab, OnTakeNPCFromPool, OnReturnNPCToPool);
+        spawnedObjects = new List<GameObject>();
     }
 
     void Update()
@@ -63,6 +65,7 @@ public class InfiniteNPCSpawner : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+        spawnedObjects.Add(obj);
     }
 
     void OnReturnNPCToPool(GameObject obj)
@@ -72,6 +75,18 @@ public class InfiniteNPCSpawner : MonoBehaviour
         currencyView.OnKillEnemy();
 
         numCurrentlySpawned -= 1;
+        spawnedObjects.Remove(obj);
+    }
+
+    public void DespawnAll()
+    {
+        // List not instantiated yet
+        if(spawnedObjects == null) { return; }
+
+        while(spawnedObjects.Count > 0)
+        {
+            Release(spawnedObjects[0]);
+        }
     }
 
     void Release(GameObject obj)

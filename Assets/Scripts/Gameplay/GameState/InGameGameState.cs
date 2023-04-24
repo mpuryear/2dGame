@@ -5,6 +5,14 @@ using VContainer;
 
 public class InGameGameStateBehaviour : GameStateBehaviour
 {
+
+    enum Trial
+    {
+        Dungeon,
+        Arena,
+        Shopping
+    }
+
     private float startTime;
     public float RunningTime => Time.time - startTime;
 
@@ -26,8 +34,7 @@ public class InGameGameStateBehaviour : GameStateBehaviour
 
     public override GameState ActiveState { get { return GameState.InGame; } }
 
-    private bool playerInDungeon = false;
-    private bool playerInArena = false;
+    private Trial currentTrial;
 
     [SerializeField]
     public InfiniteNPCSpawner[] dungeonSpawners;
@@ -35,8 +42,7 @@ public class InGameGameStateBehaviour : GameStateBehaviour
     [SerializeField]
     public InfiniteNPCSpawner[] arenaSpawners;
 
-    public float timeInBase = 60f;
-    public float timeInDungeon = 60f;
+    public float timeInTrials = 60f;
     public float timeOfLastTransition = 0f;
 
     protected override void Awake()
@@ -45,20 +51,21 @@ public class InGameGameStateBehaviour : GameStateBehaviour
         startTime = Time.time;
         commandManager = CommandManager.Instance;
         SpawnPlayer();
+        TeleportToBase();
     }
 
     void Update()
     {
-        if(!playerInDungeon && Time.time - timeOfLastTransition >= timeInBase)
+        if(Time.time - timeOfLastTransition >= timeInTrials)
         {
-            TeleportToArena();
+            StartTrialAfter(currentTrial);
         }
-        else if (playerInDungeon && Time.time - timeOfLastTransition >= timeInDungeon)
-        {
-            TeleportToBase();
-        }
+    }
 
-        if (playerInArena)
+    void FixedUpdate()
+    {
+        // We don't need this to occur every single frame. 
+        if (currentTrial == Trial.Arena)
         {
             DisableSpawnerNearestToPlayer();
         }
@@ -73,12 +80,18 @@ public class InGameGameStateBehaviour : GameStateBehaviour
     {
         timeOfLastTransition = Time.time;
 
+        for(int i = 0; i < arenaSpawners.Length; i++)
+        {
+            arenaSpawners[i].gameObject.SetActive(false);
+            arenaSpawners[i].DespawnAll();
+        }
+
         for(int i = 0; i < dungeonSpawners.Length; i++)
         {
             dungeonSpawners[i].gameObject.SetActive(true);
         }
 
-        playerInDungeon = true;
+        currentTrial = Trial.Dungeon;
         player.position = dungeonSpawnPoint.position;
     }
 
@@ -86,13 +99,18 @@ public class InGameGameStateBehaviour : GameStateBehaviour
     {
         timeOfLastTransition = Time.time;
 
+        for(int i = 0; i < dungeonSpawners.Length; i++)
+        {
+            dungeonSpawners[i].gameObject.SetActive(false);
+            dungeonSpawners[i].DespawnAll();
+        }
+
         for(int i = 0; i < arenaSpawners.Length; i++)
         {
             arenaSpawners[i].gameObject.SetActive(true);
         }
 
-        playerInArena = true;
-        playerInDungeon = true;
+        currentTrial = Trial.Arena;
         player.position = arenaSpawnPoint.position;
     }
 
@@ -103,14 +121,16 @@ public class InGameGameStateBehaviour : GameStateBehaviour
         for(int i = 0; i < dungeonSpawners.Length; i++)
         {
             dungeonSpawners[i].gameObject.SetActive(false);
+            dungeonSpawners[i].DespawnAll();
         }
 
         for(int i = 0; i < arenaSpawners.Length; i++)
         {
             arenaSpawners[i].gameObject.SetActive(false);
+            arenaSpawners[i].DespawnAll();
         }
 
-        playerInDungeon = false;
+        currentTrial = Trial.Shopping;
         player.position = baseSpawnPoint.position;
     }
 
@@ -133,6 +153,25 @@ public class InGameGameStateBehaviour : GameStateBehaviour
         if(closest)
         {
             closest.gameObject.SetActive(false);
+        }
+    }
+
+    private void StartTrialAfter(Trial current)
+    {
+        switch (current)
+        {
+            case Trial.Dungeon:
+                TeleportToBase();
+                return;
+            case Trial.Shopping:
+                TeleportToArena();
+                return;
+            case Trial.Arena:
+                TeleportToDungeon();
+                return;
+            default: 
+                Debug.Log("Missing Trial");
+                return;
         }
     }
 

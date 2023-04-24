@@ -14,7 +14,7 @@ public class TempBrain
     static readonly AIStateType[] AIStates = (AIStateType[])Enum.GetValues(typeof(AIStateType));
 
     public AIStateType currentState; 
-    private float detectEnemyRadius = 36f; 
+    public float detectEnemyRadius = 36f; 
     private float stopChaseOutsideOfRadius = 10f;
     private Transform parentTransform;
 
