@@ -24,7 +24,7 @@ public class KeyboardController : MonoBehaviour
     private Vector3 m_MovementVector;
     private float m_LerpTime = 0;
     private float m_Smoothing = 0.25f;
-
+    private bool movementEnabled = true;
 
 
     // Start is called before the first frame update
@@ -55,7 +55,8 @@ public class KeyboardController : MonoBehaviour
     void Update()
     {           
         if (rewinder.IsRewinding) { return; }
-        
+        if (!movementEnabled) { return; }
+
         m_MovementVector.Normalize();
         if (m_MovementVector != m_LastDirection)
         {
@@ -79,6 +80,11 @@ public class KeyboardController : MonoBehaviour
         
         
         m_LerpTime += Time.deltaTime;
+    }
+
+    public void SetMovementEnabled(bool movement)
+    {
+        movementEnabled = movement;
     }
 
     public void SetSpeed(float speed)
