@@ -73,7 +73,7 @@ public class InGameGameStateBehaviour : GameStateBehaviour
 
     void SpawnPlayer()
     {
-        player = Instantiate(playerPrefab, baseSpawnPoint).transform;
+        player = Instantiate(playerPrefab, baseSpawnPoint.position, Quaternion.identity).transform;
     }
 
     void TeleportToDungeon()

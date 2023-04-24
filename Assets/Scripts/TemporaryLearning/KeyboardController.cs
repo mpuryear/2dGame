@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class KeyboardController : MonoBehaviour
 {
+
+    [SerializeField]
+    private UIAbilityBar abilityBar;
+
     public RewindableCommandManager rewinder;
 
     [SerializeField]
@@ -43,6 +47,8 @@ public class KeyboardController : MonoBehaviour
         m_Movement.Enable();
         m_InputActionMap.Enable();
         m_InputActions.Enable();
+        abilityBar = GameObject.FindGameObjectWithTag("AbilityBar").GetComponent<UIAbilityBar>();
+        abilityBar.Populate();
     }
 
     void HandleMovementAction(InputAction.CallbackContext context)

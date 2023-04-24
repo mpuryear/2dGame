@@ -8,6 +8,7 @@ TagManager:
   - NavigationSystem
   - Enemy
   - CurrencyView
+  - AbilityBar
   layers:
   - Default
   - TransparentFX
