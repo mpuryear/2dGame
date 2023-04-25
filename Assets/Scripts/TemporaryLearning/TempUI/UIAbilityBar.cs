@@ -25,6 +25,7 @@ public class UIAbilityBar : MonoBehaviour
     public void Populate()
     {
         var roll = GameObject.FindGameObjectWithTag("Player").GetComponent<RollAbility>();
+        
         abilityButtonShift.SetAbility(roll);
 
         var sprint = GameObject.FindGameObjectWithTag("Player").GetComponent<SprintAbility>();
@@ -33,8 +34,10 @@ public class UIAbilityBar : MonoBehaviour
         var rewind = GameObject.FindGameObjectWithTag("Player").GetComponent<RewindTimeAbility>();
         abilityButton2.SetAbility(rewind);
 
-        var attack = GameObject.FindGameObjectWithTag("Player").GetComponent<AttackAbility>();
-        abilityButtonLMB.SetAbility(attack);
+        var fireball = GameObject.FindGameObjectWithTag("Player").GetComponent<FireballAbility>();
+        abilityButtonLMB.SetAbility(fireball);
+        // var attack = GameObject.FindGameObjectWithTag("Player").GetComponent<AttackAbility>();
+        // abilityButtonLMB.SetAbility(attack);
 
         var blink = GameObject.FindGameObjectWithTag("Player").GetComponent<BlinkAbility>();
         abilityButtonRMB.SetAbility(blink);

@@ -17,12 +17,18 @@ public class UIAbilityButton: MonoBehaviour
     private float cooldownProgress;
     [SerializeField]
     private Ability ability;
+    [SerializeField]
+    private Image iconImage;
 
-
+    /// <summary>
+    /// This is a function that does a thing.
+    /// </summary>
+    /// <param name="ability"></param>
     public void SetAbility(Ability ability)
     {
         this.ability = ability;
         effectSlider.gameObject.SetActive(false);
+        iconImage.sprite = ability.abilityBarIcon;
         ability.OnCooldownProgressUpdate += UpdateCooldownProgress;
         ability.OnEffectProgressUpdate += OnEffectProgressUpdate;
         ability.OnEffectEnd += OnEffectProgressEnd;

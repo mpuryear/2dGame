@@ -494,6 +494,7 @@ MonoBehaviour:
   cooldownText: {fileID: 7779544666370495543}
   cooldownProgress: 0
   ability: {fileID: 0}
+  iconImage: {fileID: 6232712289141539817}
 --- !u!1 &5954913705045625157
 GameObject:
   m_ObjectHideFlags: 0

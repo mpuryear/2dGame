@@ -8,6 +8,8 @@ using UnityEngine;
 public abstract class Ability : MonoBehaviour
 {
     [SerializeField]
+    public Sprite abilityBarIcon;
+    [SerializeField]
     protected bool isReady => cooldownProgress <= 0;
     [SerializeField]
     protected float cooldownDuration;

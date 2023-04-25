@@ -70,10 +70,9 @@ public class InfiniteNPCSpawner : MonoBehaviour
 
     void OnReturnNPCToPool(GameObject obj)
     {
-        obj.SetActive(false);
-        obj.GetComponent<EnemyController>().Reset();
         currencyView.OnKillEnemy();
-
+        obj.SetActive(false);
+        obj.GetComponent<HealthManager>().Reset();
         numCurrentlySpawned -= 1;
         spawnedObjects.Remove(obj);
     }

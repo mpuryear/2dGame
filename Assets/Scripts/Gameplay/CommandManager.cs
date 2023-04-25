@@ -29,9 +29,10 @@ public class CommandManager : MonoBehaviour
     public void AddCommand(ICommand command, RewindableCommandManager rewinder)
     {
         if (!acceptingCommands) return;
-        
+
         command.Execute();
-        commandBuffer.Push(command);
+        // TODO:- Limit the actual size of the command buffer to stop unity from leaking.
+        // commandBuffer.Push(command);
         if (rewinder) 
         {
             rewinder.AddCommand(command);

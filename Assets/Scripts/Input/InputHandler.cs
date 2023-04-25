@@ -13,12 +13,12 @@ public class InputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) || Input.GetMouseButton(0))
         {
             abilityLMB.Execute();
         }
 
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(1) | Input.GetMouseButton(2))
         {
             abilityRMB.Execute();
         }
@@ -28,12 +28,12 @@ public class InputHandler : MonoBehaviour
             abilityShift.Execute();
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKey(KeyCode.Alpha1))
         {
             ability1.Execute();
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2))
+        if(Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKey(KeyCode.Alpha2))
         {
             ability2.Execute();
         }

@@ -20,14 +20,10 @@ public class GoldVacuum : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.tag != GOLD_TAG) { return; }
-
-        currencyView.OnPickupGold(1);
-        PlayGoldSound();
-        Destroy(col.gameObject);
-
+        col.GetComponent<GoldController>().SuckTo(transform, currencyView, this, 5.5f);
     }
 
-    void PlayGoldSound()
+    public void PlayGoldSound()
     {
         if (audioSouce.isPlaying) { return; }
         audioSouce.Play();
