@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(HealthManager))]
-public class OnDeathSpawnPrefab : MonoBehaviour
+public class OnDeathSpawnGold : MonoBehaviour
 {
-    public GameObject prefabToSpawn;
     private HealthManager healthManager;
     public float percentSpawnChance = 30f;
 
@@ -24,7 +23,8 @@ public class OnDeathSpawnPrefab : MonoBehaviour
     {
         if(Random.Range(0f, 100f) <= percentSpawnChance)
         {
-            Instantiate(prefabToSpawn, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            //Instantiate(prefabToSpawn, new Vector3(transform.position.x, transform.position.y, transform.position.z), Quaternion.identity);
+            GoldCoinFactory.Instance.Create(new Vector3(transform.position.x, transform.position.y, transform.position.z));
         }
     }
 }

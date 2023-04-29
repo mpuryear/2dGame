@@ -42,7 +42,6 @@ public class InGameGameStateBehaviour : GameStateBehaviour
     [SerializeField]
     public InfiniteNPCSpawner[] arenaSpawners;
 
-    public float timeInTrials = 60f;
     public float timeOfLastTransition = 0f;
 
     protected override void Awake()
@@ -56,7 +55,7 @@ public class InGameGameStateBehaviour : GameStateBehaviour
 
     void Update()
     {
-        if(Time.time - timeOfLastTransition >= timeInTrials)
+        if(Time.time - timeOfLastTransition >= TimeForTrial(currentTrial))
         {
             StartTrialAfter(currentTrial);
         }
@@ -172,6 +171,22 @@ public class InGameGameStateBehaviour : GameStateBehaviour
             default: 
                 Debug.Log("Missing Trial");
                 return;
+        }
+    }
+
+    private float TimeForTrial(Trial current)
+    {
+        switch (current)
+        {
+            case Trial.Dungeon:
+                return 75f;
+            case Trial.Shopping:
+                return 10f;
+            case Trial.Arena:
+                return 240f;
+            default: 
+                Debug.Log("TimeForTrial Missing Trial");
+                return 10000f;
         }
     }
 

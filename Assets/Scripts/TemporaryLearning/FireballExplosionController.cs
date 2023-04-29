@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class FireballExplosionController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private float duration = 1f;
+    private float current = 0f;
+
+    void Update()
     {
-        DetectColliders();
-        StartCoroutine(DestroyAfterTime(2));
+        current -= Time.deltaTime;
+        if(current <= 0 )
+        {
+            FireFactory.Instance.ReleaseExplosion(this.gameObject);
+        }
     }
 
     Collider2D[] hitsBuffer = new Collider2D[50];
@@ -24,9 +29,9 @@ public class FireballExplosionController : MonoBehaviour
         }
     }
 
-    IEnumerator DestroyAfterTime(float time)
+    public void Explode()
     {
-        yield return new WaitForSeconds(time);
-        Destroy(this.gameObject);
+        current = duration;
+        DetectColliders();
     }
 }

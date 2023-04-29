@@ -74,7 +74,7 @@ public abstract class GameStateBehaviour : LifetimeScope
         }
     }
 
-    protected void OnDestroy()
+    protected override void OnDestroy()
     {
         if (!PersistsBetweenScenes)
         {

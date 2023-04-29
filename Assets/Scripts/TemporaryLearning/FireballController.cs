@@ -5,37 +5,52 @@ using UnityEngine;
 public class FireballController : MonoBehaviour
 {
     [SerializeField]
-    private GameObject explosionPrefab;
-    [SerializeField]
-    private GameObject flareUpPrefab;
+    private Rigidbody2D rigidBody;
 
-    // Start is called before the first frame update
+    private float duration = 1f;
+    private float current = 0f;
+
     void Start()
     {
-        
+        this.rigidBody = GetComponent<Rigidbody2D>();
     }
 
-    void SummonFlareUp(Vector3 atPosition)
+    void Update()
     {
-        Instantiate(flareUpPrefab, atPosition, Quaternion.identity);
+        current -= Time.deltaTime;
+        if(current <= 0 )
+        {
+            FireFactory.Instance.ReleaseFireball(this);
+        }
     }
+
+    public void ApplyMovement(Vector2 movementVector)
+    {
+        rigidBody.velocity += movementVector;
+    }
+
+    public void Reset()
+    {
+        current = duration;
+    }
+
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if(col.tag == "Enemy")
         {
             col.gameObject.GetComponent<HealthManager>().TakeDamage(1);   
-            
-            if(90 >= Random.Range(0, 100))
+            int roll = Random.Range(0, 100);
+            if(roll >= 80)
             {
-                SummonFlareUp(col.transform.position);
+                FireFactory.Instance.CreateFlareUp(col.transform.position);
             }
-            else
+            else if(roll >= 50)
             {
-                Instantiate(explosionPrefab, col.transform.position, Quaternion.identity);
+                FireFactory.Instance.CreateExplosion(col.transform.position);
             }
 
-            Destroy(this.gameObject);
+            FireFactory.Instance.ReleaseFireball(this);
         }
     }
 }

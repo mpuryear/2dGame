@@ -7,7 +7,8 @@ using TMPro;
 public class DamagePopup : MonoBehaviour
 {
     private TextMeshPro textMesh;
-    private float disappearTimer = 0.5f;
+    private float maxDisappearTime = 0.5f;
+    private float disappearTimer = 0f;
     private float moveSpeed = 2f;
 
     // Start is called before the first frame update
@@ -24,12 +25,13 @@ public class DamagePopup : MonoBehaviour
 
         if (disappearTimer < 0)
         {
-            Destroy(gameObject);
+            DamagePopupFactory.Instance.Release(this);
         }
     }
 
     public void Setup(int damageAmount, int sortOrder)
     {
+        disappearTimer = maxDisappearTime;
         textMesh.text = damageAmount.ToString();
         textMesh.sortingOrder = sortOrder;
     }

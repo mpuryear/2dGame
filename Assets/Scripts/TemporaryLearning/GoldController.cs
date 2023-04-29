@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoldController : MonoBehaviour
 {
     private Transform suckTo;
-    private float moveSpeed = 4f;
+    private float moveSpeed = 6f;
     private CurrencyView view;
     private GoldVacuum vacuum;
     void Update()
@@ -18,7 +18,8 @@ public class GoldController : MonoBehaviour
         {
             vacuum.PlayGoldSound();
             view.OnPickupGold(1);
-            Destroy(this.gameObject);
+            suckTo = null;
+            GoldCoinFactory.Instance.Release(this.gameObject);
         }
     }
 

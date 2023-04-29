@@ -10,19 +10,19 @@ public class FlareupController : MonoBehaviour
 
     public Transform toHit;
 
-    float radius = 5f;
+    float radius = 2.5f;
     float moveSpeed = 10f;
-
-    void Start()
-    {
-        // look for target
-        FindNewTarget();
-    }
 
     // Update is called once per frame
     void Update()
     {
+        if((!toHit || toHit.gameObject.activeSelf == false) && timesBounced < maxBounces)
+        {
+            FindNewTarget();
+        }
+
         if (!toHit) { return; }
+
         transform.position = Vector3.MoveTowards(transform.position, toHit.position, moveSpeed * Time.deltaTime);
 
         if((transform.position - toHit.transform.position).sqrMagnitude < 0.5f)
@@ -42,18 +42,15 @@ public class FlareupController : MonoBehaviour
         // hit our target
         toHit.gameObject.GetComponent<HealthManager>().TakeDamage(1);
         toHit = null;
+        timesBounced++;
 
-        if(timesBounced++ < maxBounces)
+        if(timesBounced >= maxBounces)
         {
-            FindNewTarget();
-        }
-        else
-        {
-            Destroy(this.gameObject);
+            FireFactory.Instance.ReleaseFlareUp(this);
         }
     }
 
-    Collider2D[] hitsBuffer = new Collider2D[50];
+    Collider2D[] hitsBuffer = new Collider2D[20];
     public void FindNewTarget()
     {
         int numHits = Physics2D.OverlapCircleNonAlloc(transform.position, radius, hitsBuffer);
@@ -67,6 +64,12 @@ public class FlareupController : MonoBehaviour
         }
 
         // No targets in range
-        Destroy(this.gameObject);
+        FireFactory.Instance.ReleaseFlareUp(this);
+    }
+
+    public void Reset()
+    {
+        toHit = null;
+        timesBounced = 0;
     }
 }

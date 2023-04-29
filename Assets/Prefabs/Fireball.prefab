@@ -215,5 +215,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9934f799e8eb32349a20c7c4d887fe27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 8756343753249093163, guid: eb0ed3bf1538c664bb79d5b924730128, type: 3}
-  flareUpPrefab: {fileID: 3992190247915333411, guid: aa593b41cc94e4a43850b09e976729c6, type: 3}
+  rigidBody: {fileID: -62600392799264054}

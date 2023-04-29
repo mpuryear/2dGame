@@ -7,12 +7,10 @@ public class FireballAbility : Ability
     [SerializeField]
     GameObject fireballPrefab;
 
-    // FUTURE:- Object pool these
-
     // Start is called before the first frame update
     void Start()
     {
-        cooldownDuration = 0.2f;
+        cooldownDuration = 0.05f;
         effectDuration = 2f;
         
     }
@@ -34,18 +32,6 @@ public class FireballAbility : Ability
         Vector2 PointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition); 
         var movementVector = (PointerPosition - (Vector2)transform.position).normalized * 10;
 
-        var fireball = Instantiate(fireballPrefab, transform.position, Quaternion.identity);
-        fireball.transform.right = (PointerPosition - (Vector2)transform.position).normalized;
-        fireball.GetComponent<Rigidbody2D>().velocity += movementVector;
-        StartCoroutine(DestroyAfterSeconds(fireball, 1));
-    }
-
-
-
-    // Temporary:- 
-    IEnumerator DestroyAfterSeconds(GameObject fireball, float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        Destroy(fireball);
+        FireFactory.Instance.CreateFireball(transform.position, (PointerPosition - (Vector2)transform.position).normalized, movementVector);
     }
 }
